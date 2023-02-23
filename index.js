@@ -5,16 +5,19 @@ const bot = new Telegraf("5982314851:AAHz0JwDC7InggdtBwLw3QSCd9bci_E6lOM");
 
 let commands = []
 
-bot.newCommand = function (...args) {
-    commands.push({ name: args[0], help: args[1]})
-    const newArgs = args.filter((item, index) => { return index !== 1 })
+Telegraf.prototype.newCommand = (...args) => {
+    commands.push(typeof args[0] === 'object' ? args[0] : { command: args[0], description: 'empty command' })
+    const newArgs = args.map((item, index) => { 
+        return index === 0 && typeof item === 'object' ? item.command : item 
+    })
     bot.command(...newArgs) 
 }
 
 initCommand(bot)
 
+bot.telegram.setMyCommands(commands.sort((left, right) => left.command.localeCompare(right.command)))
+
 bot.start((ctx) => ctx.reply('Welcome'));
-bot.help((ctx) => ctx.reply('Список доступных команд:\n\n' + commands.map(item => `/${item?.name}: ${item?.help}`).join('\n')));
 
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 bot.hears('hi', (ctx) => ctx.reply('Hey there'));

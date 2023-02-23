@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.20",
-    "telegraf": "^4.7.0"
+    "telegraf": "^4.11.2"
   }
 }
