@@ -5,7 +5,7 @@ const getErrorMessage = (fileName, message) => {
     console.log(`Error load ${fileName}: ${message}`) 
 }
 
-const initCommand = (bot) => {
+const initMiddleware = (bot) => {
     fs.readdirSync(__dirname)
         .filter((file) => file.indexOf(".") !== 0 && file !== 'index.js' && file.slice(-3) === ".js")
         .forEach((item) => { 
@@ -17,4 +17,4 @@ const initCommand = (bot) => {
     })
 }
 
-module.exports = initCommand
+module.exports = initMiddleware
