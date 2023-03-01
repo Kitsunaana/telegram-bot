@@ -1,4 +1,5 @@
-const deleteMessage = require('./deleteMessage');
+const deleteMessage = require('./deleteMessage')
+const { Composer } = require('telegraf');
 
 let commands = []
 
@@ -10,15 +11,15 @@ const checkMiddleware = (needReplace) => {
     }
 }
 
-const initProto = (bot) => {
-    bot.__proto__.newCommand = (...args) => {
-        commands.push(isObj(args[0]) ? args[0] : { command: args[0], description: 'empty command' })
-        let newArgs = args.map((item, index) => index === 0 && isObj(item) ? item.command : item)
-        if (typeof args[1] === 'boolean' && args[1]) 
-            { newArgs = newArgs.map(checkMiddleware(args[1])).filter(item => item !== null) }
-    
-        bot.command(...newArgs)
-    }
+Composer.prototype.newCommand = function () {
+    commands.push(isObj(arguments[0]) ? arguments[0] : { command: arguments[0], description: 'empty command' })
+
+    let newArgs = Object.values(arguments).map((item, index) => index === 0 && isObj(item) ? item.command : item)
+
+    if (typeof arguments[1] === "boolean" && arguments[1])
+        { newArgs = newArgs.map(checkMiddleware(arguments[1])).filter(item => item !== null) }
+
+    this.command(...newArgs)
 }
 
-module.exports = { commands, initProto }
+module.exports = { commands }

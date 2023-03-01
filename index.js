@@ -1,10 +1,10 @@
 const { Telegraf } = require('telegraf')
 const loader = require('./utils/loader')
-const { commands, initProto } = require('./utils/telegrafProto')
+const { commands } = require('./utils/telegrafProto')
 
 const bot = new Telegraf("5982314851:AAHz0JwDC7InggdtBwLw3QSCd9bci_E6lOM")
 
-initProto(bot)
+// initProto(bot)
 loader({ path: "./middleware", type: "middleware" }, bot)
 loader({ path: "./commands", type: "command" }, bot)
 
