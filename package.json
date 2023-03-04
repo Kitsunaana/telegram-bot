@@ -5,13 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "postinstall": "cd server && npm install",
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+    "start": "npm-run-all --parallel server client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kitsunaana/telegram-bot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kitsunaana/telegram-bot/issues"
+  },
+  "homepage": "https://github.com/Kitsunaana/telegram-bot#readme",
   "dependencies": {
-    "nodemon": "^2.0.20",
-    "telegraf": "^4.7.2"
+    "npm-run-all": "^4.1.5"
   }
 }

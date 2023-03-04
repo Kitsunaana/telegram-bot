@@ -12,3 +12,4 @@ const compareStringInArray = (itemString, arrayItems) => {
 }
 
 module.exports = { compareString, compareStringInArray }
+
